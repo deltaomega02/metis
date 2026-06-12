@@ -1,0 +1,15 @@
+[Unit]
+Description=Paper leverage validation (real-time, multi-variant, sim only)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/metis-v4
+ExecStart=/home/botuser/metis-v4/run_paper.sh
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

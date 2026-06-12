@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily asset report (Gemini Flash → Telegram)
+
+[Service]
+Type=oneshot
+User=botuser
+WorkingDirectory=/home/botuser/metis-v4
+ExecStart=/bin/bash -c 'cd /home/botuser/metis-v4 && set -a && source v4.env && set +a && /home/botuser/metis-f2/venv/bin/python daily_report.py'

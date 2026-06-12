@@ -1,0 +1,18 @@
+[Unit]
+Description=METIS v6 breakout portfolio engine
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/metis-v6/code
+EnvironmentFile=/home/botuser/metis-v6/.env
+ExecStart=/home/botuser/metis-v6/venv/bin/python3 -u main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

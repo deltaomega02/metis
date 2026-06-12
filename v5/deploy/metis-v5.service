@@ -1,0 +1,53 @@
+# /etc/systemd/system/metis-v5.service
+# METIS scalping bot — runs from ~botuser/metis-v5
+#
+# Conflicts with metis-v4-bot (BTC SMA125 trend bot, already on this VM)
+# so they never run together on 1GB e2-micro. Stop one before starting the other.
+#
+# 설치:
+#   sudo cp deploy/metis-v5.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable metis-v5
+#   sudo systemctl start metis-v5
+#
+# 운영:
+#   sudo systemctl status metis-v5
+#   sudo systemctl restart metis-v5
+#   sudo systemctl stop metis-v5
+#   sudo journalctl -u metis-v5 -f
+#   sudo journalctl -u metis-v5 --since "1 hour ago"
+
+[Unit]
+Description=METIS v5 — SOL+ETH perpetual scalping decision engine
+After=network-online.target
+Wants=network-online.target
+Conflicts=metis-v4-bot.service
+
+[Service]
+Type=simple
+User=botuser
+Group=botuser
+WorkingDirectory=/home/botuser/metis-v5/code
+EnvironmentFile=/home/botuser/metis-v5/.env
+ExecStart=/home/botuser/metis-v5/venv/bin/python3 -u main.py
+Restart=on-failure
+RestartSec=15
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# memory ceiling — 1GB 중 730MB 예약. 넘으면 systemd OOM 차단.
+MemoryMax=730M
+# CPU 부담 제한 (burst OK, sustained throttle)
+CPUQuota=80%
+
+# graceful shutdown
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+# stdout/stderr → journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=metis-v5
+
+[Install]
+WantedBy=multi-user.target

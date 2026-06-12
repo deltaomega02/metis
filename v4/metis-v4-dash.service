@@ -1,0 +1,15 @@
+[Unit]
+Description=Operations dashboard (streamlit)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/metis-v4
+ExecStart=/home/botuser/metis-v4/run_dash.sh
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

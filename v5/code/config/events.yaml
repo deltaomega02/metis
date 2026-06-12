@@ -1,0 +1,65 @@
+# METIS v4 — Macro/Crypto Event Calendar
+# Manually updated weekly (R3 합의). Stale > 7d → conservative block.
+#
+# Schema:
+#   event_id        — 고유 ID
+#   type            — FOMC | CPI | PCE | NFP | FED_SPEECH | SOL_UNLOCK | ETH_UPGRADE | EXCHANGE_INCIDENT | OTHER
+#   impact          — high | medium | low
+#   start_utc       — ISO-8601 UTC timestamp
+#   block_before_min — 이벤트 전 N분부터 block
+#   block_after_min  — 이벤트 후 N분까지 block
+#   size_multiplier  — block_after_min 이후 잔존 size 감산 (0.0-1.0). 1.0 = no reduction
+#   source          — 출처 (검증용)
+#   notes           — 사람 메모
+
+last_updated_utc: "2026-05-28T00:00:00Z"
+maintainer: "ΔΩ"
+
+# 항상 적용되는 정기 윈도우 (KST09 / UTC00 daily reset 등)
+recurring_windows:
+  - name: "kst09_utc00_daily_reset"
+    description: "UTC 23:55-00:30 daily candle reset window"
+    block_start_utc_hhmm: "23:55"
+    block_end_utc_hhmm: "00:10"
+    reduce_only_start_utc_hhmm: "00:10"
+    reduce_only_end_utc_hhmm: "00:30"
+    enabled: true
+  - name: "funding_settle"
+    description: "Bybit funding settlement UTC 00:00 / 08:00 / 16:00"
+    block_before_min: 5
+    block_after_min: 5
+    times_utc: ["00:00", "08:00", "16:00"]
+    enabled: true
+
+# 일회성 이벤트
+events:
+  # 예시 — 실제 운영 시 매주 일요일 갱신
+  - event_id: "fomc_2026_06_18"
+    type: "FOMC"
+    impact: "high"
+    start_utc: "2026-06-18T18:00:00Z"
+    block_before_min: 60
+    block_after_min: 120
+    size_multiplier: 0.5
+    source: "Federal Reserve calendar"
+    notes: "Rate decision + Powell press"
+
+  - event_id: "cpi_2026_06_12"
+    type: "CPI"
+    impact: "high"
+    start_utc: "2026-06-12T12:30:00Z"
+    block_before_min: 30
+    block_after_min: 60
+    size_multiplier: 0.5
+    source: "BLS"
+    notes: "US CPI release"
+
+  - event_id: "sol_unlock_2026_06_01"
+    type: "SOL_UNLOCK"
+    impact: "medium"
+    start_utc: "2026-06-01T00:00:00Z"
+    block_before_min: 0
+    block_after_min: 240
+    size_multiplier: 0.3
+    source: "Solana foundation schedule"
+    notes: "Quarterly unlock — monitor for cascade"

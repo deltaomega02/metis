@@ -1,0 +1,30 @@
+# METIS-F Dependencies
+# Bybit API
+pybit>=5.7.0
+
+# AI
+google-genai
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+mplfinance>=0.12.10
+
+# Telegram
+python-telegram-bot>=20.0
+
+# Scheduling
+apscheduler>=3.10.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# HTTP
+requests>=2.31.0
+websocket-client>=1.6.0
+
+# Async
+aiohttp>=3.9.0

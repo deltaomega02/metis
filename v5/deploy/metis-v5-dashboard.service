@@ -1,0 +1,36 @@
+# /etc/systemd/system/metis-v5-dashboard.service
+# 별도 process — main 봇과 메모리 격리 (대시보드는 ~100MB 차지)
+#
+# 외부 접속 (GCP firewall 8501 닫혀있음):
+#   1) SSH tunnel:
+#        gcloud compute ssh <vm> -- -L 8501:127.0.0.1:8501
+#      그 후 브라우저 http://localhost:8501
+#   2) 또는 IAP TCP forwarding
+
+[Unit]
+Description=METIS v5 Dashboard (Streamlit)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+Group=botuser
+WorkingDirectory=/home/botuser/metis-v5/code
+EnvironmentFile=/home/botuser/metis-v5/.env
+ExecStart=/home/botuser/metis-v5/venv/bin/python3 -u observability/dashboard.py
+Environment=DASHBOARD_PORT=8501
+Environment=DASHBOARD_ADDR=0.0.0.0
+Restart=on-failure
+RestartSec=15
+
+# bare http.server — 가벼움. 60MB ceiling 충분.
+MemoryMax=80M
+CPUQuota=15%
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=metis-v5-dash
+
+[Install]
+WantedBy=multi-user.target

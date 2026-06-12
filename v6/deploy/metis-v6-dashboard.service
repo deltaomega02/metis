@@ -1,0 +1,17 @@
+[Unit]
+Description=METIS v6 monochrome dashboard (bare http.server :8501)
+After=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/metis-v6/code
+EnvironmentFile=/home/botuser/metis-v6/.env
+ExecStart=/home/botuser/metis-v6/venv/bin/python3 -u observability/dashboard.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

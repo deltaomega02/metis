@@ -1,0 +1,18 @@
+[Unit]
+Description=METIS v6 paper ls arm (forward + live-vs-paper slippage comparison)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/metis-v6/code
+EnvironmentFile=/home/botuser/metis-v6/paper.env
+ExecStart=/home/botuser/metis-v6/venv/bin/python3 -u main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

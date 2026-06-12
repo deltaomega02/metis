@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily report timer (09:00 KST = 00:00 UTC)
+
+[Timer]
+OnCalendar=*-*-* 00:00:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target
