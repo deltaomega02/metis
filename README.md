@@ -1,5 +1,7 @@
 # METIS — 암호화폐 무기한 선물 AI 자동매매 시스템
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Google Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+
 Bybit USDT-M 무기한 선물 거래를 자동화하는 AI 기반 시스템. v1 → v2 → v3 세 버전의 진화 기록을 보존한 아카이브 저장소다.
 
 각 버전은 직전 버전의 한계를 데이터로 확인한 뒤 전면 재설계한 결과이며, 공통 철학은 다음과 같다.
