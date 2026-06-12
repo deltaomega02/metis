@@ -16,7 +16,7 @@ Bybit USDT-Perpetual (SOLUSDT + ETHUSDT) winner-takes-all 15분 단타. Gemini 3
 
 ### Secrets (.env)
 ```bash
-cd /Users/sue/Projects/METIS/v4
+cd ~/Projects/METIS/v4
 cp .env.example .env
 # 편집
 ```
@@ -31,7 +31,7 @@ cp .env.example .env
 
 ### Dependencies
 ```bash
-cd /Users/sue/Projects/METIS/v4
+cd ~/Projects/METIS/v4
 pip3 install --user -r code/requirements.txt
 ```
 
@@ -45,7 +45,7 @@ pip3 install --user -r code/requirements.txt
 
 ### 봇 본체
 ```bash
-cd /Users/sue/Projects/METIS/v4/code
+cd ~/Projects/METIS/v4/code
 python3 main.py
 ```
 
@@ -53,7 +53,7 @@ python3 main.py
 
 ### 대시보드 (별도 터미널, 다른 process)
 ```bash
-cd /Users/sue/Projects/METIS/v4/code
+cd ~/Projects/METIS/v4/code
 streamlit run observability/dashboard.py
 ```
 브라우저 자동 오픈 — 흰색 light theme, 한 화면.
@@ -75,7 +75,7 @@ pkill -SIGTERM -f "python3 main.py"
 
 ## 4. 테스트 (선택)
 ```bash
-cd /Users/sue/Projects/METIS/v4/code
+cd ~/Projects/METIS/v4/code
 python3 -m pytest tests/ -v
 ```
 
