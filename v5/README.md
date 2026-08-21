@@ -1,4 +1,4 @@
-# METIS v4 — Production Setup
+# METIS v4 — Production Setup (폴더명은 v5 이지만 내용은 v4 다)
 
 > R1~R5 합의 + GPT-5.5 Pro adversarial review 통과한 prompt freeze v1.
 > 운영자 — Programming.
